@@ -10,4 +10,4 @@ from bookshelf.models import Book
 book_to_delete = Book.objects.get(title="1984")
 
 # Delete the book instance
-book_to_delete.delete()
+book.delete()
