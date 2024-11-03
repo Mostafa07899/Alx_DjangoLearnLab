@@ -1,5 +1,7 @@
-# Create Operation
+# Create a Book Instance
+
+In this operation, we create a new book instance using the following command:
+
 ```python
-from bookshelf.models import Book
-book = Book(title="1984", author="George Orwell", publication_year=1949)
-book.save()
+# Create a Book instance
+book = Book.objects.create(title="1984", author="George Orwell", publication_year=1949)
