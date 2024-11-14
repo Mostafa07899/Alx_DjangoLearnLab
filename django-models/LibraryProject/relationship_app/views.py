@@ -9,6 +9,7 @@ from django.shortcuts import redirect
 from django.contrib.auth import login, logout
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -46,6 +47,6 @@ class CustomLogoutView(LogoutView):
     template_name = 'logout.html'
 
 
-    
+
 LoginView = auth_views.LoginView.as_view(template_name="login.html")
 LogoutView = auth_views.LogoutView.as_view(template_name="logut.html")
