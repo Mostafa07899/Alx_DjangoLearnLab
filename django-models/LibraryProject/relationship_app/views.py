@@ -10,6 +10,8 @@ from django.contrib.auth import login, logout
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -50,3 +52,19 @@ class CustomLogoutView(LogoutView):
 
 LoginView = auth_views.LoginView.as_view(template_name="login.html")
 LogoutView = auth_views.LogoutView.as_view(template_name="logut.html")
+
+
+def check_role(role):
+    def decorator(user):
+        return user.is_authenticated and user.userprofile.role == role
+    return user_passes_test(decorator)
+
+
+def admin_view(request):
+    return HttpResponse("Welcome to the Admin dashboard.")
+
+def member_view(request):
+    return HttpResponse("Welcome to the Member dashboard.")
+
+def librarian_view(request):
+    return HttpResponse("Welcome to the Librarian dashboard.")
