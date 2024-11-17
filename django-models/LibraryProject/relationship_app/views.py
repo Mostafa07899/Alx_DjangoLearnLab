@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic.detail import DetailView
 from .models import Book
 from .models import Library
@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponse
 from django.http import HttpResponseForbidden 
 from .models import UserProfile
+from django.contrib.auth.decorators import permission_required
 
 # Create your views here.
 
@@ -75,3 +76,15 @@ def member_view(request):
 
 def librarian_view(request):
     return HttpResponse("Welcome to the Librarian dashboard.")
+
+
+
+def add_book(request):
+    return HttpResponse("Book added successfully.")
+
+def edit_book(request):
+    book = get_object_or_404(Book)
+    return HttpResponse("Book edited successfully.")
+
+def delete_book(request):
+    return HttpResponse("Book deleted successfully.")
