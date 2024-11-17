@@ -67,13 +67,15 @@ def is_member(user):
     return user.userprofile.role == 'Member'
 
 
-
+@user_passes_test(is_admin)
 def admin_view(request):
     return HttpResponse("Welcome to the Admin dashboard.")
 
+@user_passes_test(is_member)
 def member_view(request):
     return HttpResponse("Welcome to the Member dashboard.")
 
+@user_passes_test(is_librarian)
 def librarian_view(request):
     return HttpResponse("Welcome to the Librarian dashboard.")
 
