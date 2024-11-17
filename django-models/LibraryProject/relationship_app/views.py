@@ -12,6 +12,8 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponse
+from django.http import HttpResponseForbidden 
+from .models import UserProfile
 
 # Create your views here.
 
@@ -54,10 +56,15 @@ LoginView = auth_views.LoginView.as_view(template_name="login.html")
 LogoutView = auth_views.LogoutView.as_view(template_name="logut.html")
 
 
-def check_role(role):
-    def decorator(user):
-        return user.is_authenticated and user.userprofile.role == role
-    return user_passes_test(decorator)
+def is_admin(user):
+    return user.userprofile.role == 'Admin'
+
+def is_librarian(user):
+    return user.userprofile.role == 'Librarian'
+
+def is_member(user):
+    return user.userprofile.role == 'Member'
+
 
 
 def admin_view(request):
