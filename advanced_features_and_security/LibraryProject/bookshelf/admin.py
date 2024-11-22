@@ -13,7 +13,7 @@ admin.site.register(Book, BookAdmin)
 
 
 class CustomUserAdmin(UserAdmin):
-    model = CustomeUser
+    model = CustomUser
     fieldsets = UserAdmin.fieldsets + (
         ('Additional Info', {'fields': ('date_of_birth', 'profile_photo')}),
     )
