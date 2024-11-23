@@ -7,8 +7,8 @@ from django.contrib.auth.models import User, Group
 
 class Book(models.Model):
     title = models.CharField(max_length=200)
-    author = models.CharField(max_length=100)
-    publication_year = models.IntegerField()
+    content = models.TextField()
+    date_created = models.DateTimeField(auto_now_add=True)
 
 
     def __str__(self):
@@ -49,8 +49,8 @@ class CustomUser(AbstractUser):
 
 class Article(models.Model):
     title = models.CharField(max_length=200)
-    content = models.TextField()
-    date_created = models.DateTimeField(auto_now_add=True)
+    
+    
 
     class Meta:
         permissions = [ 
