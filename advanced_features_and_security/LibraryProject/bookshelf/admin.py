@@ -4,6 +4,8 @@ from .models import CustomUser
 from django.contrib.auth.admin import UserAdmin 
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
+from django.dispatch import receiver
+from django.db.models.signals import post_migrate
 
 class BookAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'publication_year')  # Display fields in list view
@@ -49,4 +51,6 @@ def create_groups_and_permissions():
         group, created = Group.objects.get_or_create(name=group_name)
         group.permissions.set(perms)
 
-create_groups_and_permissions()
+@receiver(post_migrate)
+def create_groups_and_permissions_signal(sender, **kwargs):
+    create_groups_and_permissions()

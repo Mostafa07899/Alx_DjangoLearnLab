@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import permission_required
 from .models import Book
 from django.http import HttpResponse
+from .forms import SearchForm
 
 
 # Create your views here.
@@ -37,3 +38,14 @@ def book_delete(request, pk):
     book = get_object_or_404(Book, pk=pk)
     book.delete()
     return HttpResponse("Book deleted successfully!")
+
+
+
+def search_books(request):
+    form = SearchForm(request.GET)
+    books = []
+    if form.is_valid():
+        query = form.cleaned_data['query']
+        books = Book.objects.filter(title__icontains=query)
+
+    return render(request, 'bookshelf/book_list.html', {'form': form, 'books': books})
