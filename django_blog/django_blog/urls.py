@@ -1,5 +1,5 @@
 """
-URL configuration for LibraryProject project.
+URL configuration for django_blog project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
@@ -15,13 +15,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 
-urlpatterns = [ 
+urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/profile/',
-             TemplateView.as_view(template_name='accounts/profile.html'),
-             name='profile'),
-    path("signup/", SignUpView.as_view(), name="templates/registration/signup"),
 ]
