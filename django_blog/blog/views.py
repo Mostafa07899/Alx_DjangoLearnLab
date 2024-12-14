@@ -49,7 +49,7 @@ class PostCreateView(CreateView, LoginRequiredMixin):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-class PosrUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['title', 'content']
     template_name = 'blog/post_form.html'

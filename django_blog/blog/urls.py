@@ -1,7 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
-from .views import (PosrUpdateView, PostCreateView, PostDeleteView, PostDetailView, PostListView)
+from .views import (PostUpdateView, PostCreateView, PostDeleteView, PostDetailView, PostListView)
 
 
 urlspatterns = [
@@ -12,6 +12,6 @@ urlspatterns = [
     path('', PostListView.as_view(), name='post-list'),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
     path('post/new/', PostCreateView.as_view(), name='post-create'),
-    path('post/<int:pk>/edit/', PostUpdateView.as_view(), name='post-update'),
+    path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
 ]
