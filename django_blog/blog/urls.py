@@ -2,7 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
 from .views import (PostUpdateView, PostCreateView, PostDeleteView, PostDetailView, PostListView, CommentCreateView,
-                    CommentUpdateView, CommentDeleteView)
+                    CommentUpdateView, CommentDeleteView, PostSearchView, posts_by_tag)
 
 
 urlspatterns = [
@@ -18,4 +18,6 @@ urlspatterns = [
     path('post/<int:pk>/comments/new/', CommentCreateView.as_view(), name='comment_create'),
     path('comment/<int:pk>/update/', CommentUpdateView.as_view(), name='comment_edit'),
     path('comment/<int:pk>/delete/', CommentDeleteView.as_view(), name='comment_delete'),
+    path('search/', PostSearchView.as_view(), name='post_search'),
+    path('tags/<str:tag_name>/', posts_by_tag, name='posts_by_tag'),
 ]
