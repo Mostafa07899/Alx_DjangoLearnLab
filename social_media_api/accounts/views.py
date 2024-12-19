@@ -8,6 +8,7 @@ from rest_framework import status
 from .models import CustomUser
 from .serializers import UserSerializer, RegisterSerializer
 from django.contrib.auth import get_user_model
+from rest_framework.generics import GenericAPIView
 
 # Create your views here.
 
