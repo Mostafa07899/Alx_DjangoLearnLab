@@ -42,7 +42,7 @@ class FeedView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        followed_users = request.user.following.all()
-        posts = Post.objects.filter(author__in=followed_users).order_by('-created_at')
+        following_users = request.user.following.all()
+        posts = Post.objects.filter(author__in=following_users).order_by('-created_at')
         feed_data = [{'title': post.title, 'content': post.content, 'author': post.author.username} for post in posts]
         return Response(feed_data, status=status.HTTP_200_OK)
