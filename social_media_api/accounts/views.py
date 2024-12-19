@@ -3,8 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.permissions import IsAuthenticated
-from rest_framework import status, generics
+from rest_framework import status, generics, permissions
 from .models import CustomUser
 from .serializers import UserSerializer, RegisterSerializer, UserFollowSerializer
 from django.contrib.auth import get_user_model
@@ -41,7 +40,8 @@ class ProfileView(APIView):
     
 
 class FollowUserView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = UserFollowSerializer
 
     def post(self, request, user_id):
         try:
@@ -53,7 +53,8 @@ class FollowUserView(generics.GenericAPIView):
         
 
 class UnfollowUserView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = UserFollowSerializer
 
 
     def post(self, request, user_id):
@@ -66,6 +67,6 @@ class UnfollowUserView(generics.GenericAPIView):
         
 
 class UserListView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = UserFollowSerializer
     queryset = CustomUser.objects.all()
