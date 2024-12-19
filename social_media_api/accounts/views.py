@@ -4,11 +4,10 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import status
+from rest_framework import status, generics
 from .models import CustomUser
-from .serializers import UserSerializer, RegisterSerializer
+from .serializers import UserSerializer, RegisterSerializer, UserFollowSerializer
 from django.contrib.auth import get_user_model
-from rest_framework.generics import GenericAPIView
 
 # Create your views here.
 
@@ -41,7 +40,7 @@ class ProfileView(APIView):
         return Response({"username": User.username, "email": User.email})
     
 
-class FollowUserView(APIView):
+class FollowUserView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, user_id):
@@ -53,7 +52,7 @@ class FollowUserView(APIView):
             return Response({'error': 'user not found'}, status=status.HTTP_404_NOT_FOUND)
         
 
-class unfollowUserView(APIView):
+class UnfollowUserView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated]
 
 
@@ -65,4 +64,8 @@ class unfollowUserView(APIView):
         except CustomUser.DoesNotExist:
             return Response({'error': 'user not found.'}, status=status.HTTP_404_NOT_FOUND)
         
-        
+
+class UserListView(generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserFollowSerializer
+    queryset = CustomUser.objects.all()
