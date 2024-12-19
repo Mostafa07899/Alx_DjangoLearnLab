@@ -11,7 +11,7 @@ from django.contrib.auth import get_user_model
 
 # Create your views here.
 
-User = get_user_model
+User = get_user_model()
 
 class RegisterView(APIView):
     def post(self, request):
@@ -37,4 +37,4 @@ class loginView(APIView):
 class ProfileView(APIView):
     def get(self, request):
         user = request.user
-        return Response({"username": user.username, "email": user.email})
+        return Response({"username": User.username, "email": User.email})
