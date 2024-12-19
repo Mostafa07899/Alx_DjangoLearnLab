@@ -35,3 +35,10 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
     
 
+class UserFollowSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'username', 'followers', 'following']
+        read_only_fields = ['following', 'followers']
+
+        

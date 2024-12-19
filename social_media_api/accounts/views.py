@@ -38,3 +38,30 @@ class ProfileView(APIView):
     def get(self, request):
         user = request.user
         return Response({"username": User.username, "email": User.email})
+    
+
+class FollowUserView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, user_id):
+        try:
+            user_to_follow = CustomUser.objects.get(id=user_id)
+            request.user.follow(user_to_follow)
+            return Response({'detail': 'User followed successfully.'}, status=status.HTTP_200_OK)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'user not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+
+class unfollowUserView(APIView):
+    permission_classes = [IsAuthenticated]
+
+
+    def post(self, request, user_id):
+        try:
+           user_to_unfollow = CustomUser.objects.get(id=user_id)
+           request.user.unfollow(user_to_unfollow)
+           return Response({'detail': 'user unfollowed successfully.'}, status=status.HTTP_200_OK)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'user not found.'}, status=status.HTTP_404_NOT_FOUND)
+        
+        
