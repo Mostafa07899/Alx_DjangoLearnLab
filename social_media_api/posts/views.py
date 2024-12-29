@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import viewsets, permissions, status, generics
 from .models import Post, Comment, Like
@@ -56,7 +56,7 @@ class LikePostView(generics.GenericAPIView):
 
     def post(self, request, pk):
         try:
-            post = Post.objects.get(pk)
+            post = get_object_or_404(Post, pk=pk)
             like, created = Like.objects.get_or_create(user=request.user, post=post)
 
             if not created:
