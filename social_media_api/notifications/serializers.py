@@ -3,7 +3,7 @@ from .models import Notification
 
 
 
-class NotificationSerializer(serializers.ModelSerializer)
+class NotificationSerializer(serializers.ModelSerializer):
     actor = serializers.StringRelatedField()
     target = serializers.StringRelatedField()
 
@@ -11,4 +11,3 @@ class NotificationSerializer(serializers.ModelSerializer)
         model = Notification
         fields = ['id', 'recipient', 'verb', 'target', 'timastamp']
         read_only_fields = ['id', 'timestamp']
-        
