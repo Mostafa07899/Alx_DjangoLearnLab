@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'social_media_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',  # Use your database engine
+        'NAME': os.environ.get('DB_NAME'),         # Database name
+        'USER': os.environ.get('DB_USER'),         # Database user
+        'PASSWORD': os.environ.get('DB_PASSWORD'), # Database password
+        'HOST': os.environ.get('DB_HOST'),         # Database host
+        'PORT': os.environ.get('DB_PORT'),
     }
 }
 
